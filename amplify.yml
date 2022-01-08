@@ -1,0 +1,19 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm install env-cmd
+        - npm ci
+    build:
+      commands:
+        - echo "I am running 🏃on $REACT_APP_BUILD_ENV"
+        - npm run build:$REACT_APP_BUILD_ENV
+        - echo "testing $REACT_APP_TEST"
+  artifacts:
+    baseDirectory: build
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - node_modules/**/*
